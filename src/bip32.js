@@ -303,8 +303,8 @@ function fromSeed(seed, network) {
     return fromPrivateKey(IL, IR, network);
 }
 exports.fromSeed = fromSeed;
-function fromJsObject(obj) {
-    const { privateKey, publicKey, chainCode, network, depth, index, parentFingerprint } = obj;
+function fromJsObject(serializedNode) {
+    const { privateKey, publicKey, chainCode, network, depth, index, parentFingerprint } = serializedNode;
     return new BIP32(privateKey, publicKey, chainCode, network, depth, index, parentFingerprint);
 }
 exports.fromJsObject = fromJsObject;

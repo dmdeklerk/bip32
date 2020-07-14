@@ -49,7 +49,15 @@ function BIP32Path(value: string): boolean {
 function UInt31(value: number): boolean {
   return typeforce.UInt32(value) && value <= UINT31_MAX;
 }
-
+export interface BIP32SerializedNode {
+  privateKey: Buffer | undefined;
+  publicKey: Buffer | undefined;
+  chainCode: Buffer;
+  network: Network;
+  depth: number;
+  index: number;
+  parentFingerprint: number;
+}
 export interface BIP32Interface {
   chainCode: Buffer;
   network: Network;
@@ -61,6 +69,7 @@ export interface BIP32Interface {
   privateKey?: Buffer;
   identifier: Buffer;
   fingerprint: Buffer;
+  toJsObject(): BIP32SerializedNode;
   isNeutered(): boolean;
   neutered(): BIP32Interface;
   toBase58(): string;
@@ -87,7 +96,7 @@ class BIP32 implements BIP32Interface {
     this.lowR = false;
   }
 
-  toJsObject() {
+  toJsObject(): BIP32SerializedNode {
     return {
       privateKey: this.__D,
       publicKey: this.__Q,
@@ -471,7 +480,7 @@ export function fromSeed(seed: Buffer, network?: Network): BIP32Interface {
   return fromPrivateKey(IL, IR, network);
 }
 
-export function fromJsObject(obj: any) {
-  const { privateKey, publicKey, chainCode, network, depth, index, parentFingerprint } = obj
+export function fromJsObject(serializedNode: BIP32SerializedNode) {
+  const { privateKey, publicKey, chainCode, network, depth, index, parentFingerprint } = serializedNode
   return new BIP32(privateKey, publicKey, chainCode, network, depth, index, parentFingerprint)
 }

@@ -10,6 +10,15 @@ interface Network {
     pubKeyHash?: number;
     scriptHash?: number;
 }
+export interface BIP32SerializedNode {
+    privateKey: Buffer | undefined;
+    publicKey: Buffer | undefined;
+    chainCode: Buffer;
+    network: Network;
+    depth: number;
+    index: number;
+    parentFingerprint: number;
+}
 export interface BIP32Interface {
     chainCode: Buffer;
     network: Network;
@@ -21,6 +30,7 @@ export interface BIP32Interface {
     privateKey?: Buffer;
     identifier: Buffer;
     fingerprint: Buffer;
+    toJsObject(): BIP32SerializedNode;
     isNeutered(): boolean;
     neutered(): BIP32Interface;
     toBase58(): string;
@@ -41,15 +51,7 @@ declare class BIP32 implements BIP32Interface {
     private __PARENT_FINGERPRINT;
     lowR: boolean;
     constructor(__D: Buffer | undefined, __Q: Buffer | undefined, chainCode: Buffer, network: Network, __DEPTH?: number, __INDEX?: number, __PARENT_FINGERPRINT?: number);
-    toJsObject(): {
-        privateKey: Buffer | undefined;
-        publicKey: Buffer | undefined;
-        chainCode: Buffer;
-        network: Network;
-        depth: number;
-        index: number;
-        parentFingerprint: number;
-    };
+    toJsObject(): BIP32SerializedNode;
     readonly depth: number;
     readonly index: number;
     readonly parentFingerprint: number;
@@ -71,5 +73,5 @@ export declare function fromBase58(inString: string, network?: Network): BIP32In
 export declare function fromPrivateKey(privateKey: Buffer, chainCode: Buffer, network?: Network): BIP32Interface;
 export declare function fromPublicKey(publicKey: Buffer, chainCode: Buffer, network?: Network): BIP32Interface;
 export declare function fromSeed(seed: Buffer, network?: Network): BIP32Interface;
-export declare function fromJsObject(obj: any): BIP32;
+export declare function fromJsObject(serializedNode: BIP32SerializedNode): BIP32;
 export {};

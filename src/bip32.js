@@ -44,6 +44,17 @@ class BIP32 {
         typeforce(NETWORK_TYPE, network);
         this.lowR = false;
     }
+    toJsObject() {
+        return {
+            privateKey: this.__D,
+            publicKey: this.__Q,
+            chainCode: this.chainCode,
+            network: this.network,
+            depth: this.__DEPTH,
+            index: this.__INDEX,
+            parentFingerprint: this.__PARENT_FINGERPRINT
+        }
+    }
     get depth() {
         return this.__DEPTH;
     }
@@ -292,3 +303,8 @@ function fromSeed(seed, network) {
     return fromPrivateKey(IL, IR, network);
 }
 exports.fromSeed = fromSeed;
+function fromJsObject(obj) {
+    const { privateKey, publicKey, chainCode, network, depth, index, parentFingerprint } = obj
+    return new BIP32(privateKey, publicKey, chainCode, network, depth, index, parentFingerprint)
+}
+exports.fromJsObject = fromJsObject;

@@ -87,6 +87,18 @@ class BIP32 implements BIP32Interface {
     this.lowR = false;
   }
 
+  toJsObject() {
+    return {
+      privateKey: this.__D,
+      publicKey: this.__Q,
+      chainCode: this.chainCode,
+      network: this.network,
+      depth: this.__DEPTH,
+      index: this.__INDEX,
+      parentFingerprint: this.__PARENT_FINGERPRINT
+    }
+  }
+
   get depth(): number {
     return this.__DEPTH;
   }
@@ -457,4 +469,9 @@ export function fromSeed(seed: Buffer, network?: Network): BIP32Interface {
   const IR = I.slice(32);
 
   return fromPrivateKey(IL, IR, network);
+}
+
+export function fromJsObject(obj: any) {
+  const { privateKey, publicKey, chainCode, network, depth, index, parentFingerprint } = obj
+  return new BIP32(privateKey, publicKey, chainCode, network, depth, index, parentFingerprint)
 }

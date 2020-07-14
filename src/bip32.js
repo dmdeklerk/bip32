@@ -53,7 +53,7 @@ class BIP32 {
             depth: this.__DEPTH,
             index: this.__INDEX,
             parentFingerprint: this.__PARENT_FINGERPRINT
-        }
+        };
     }
     get depth() {
         return this.__DEPTH;
@@ -304,7 +304,7 @@ function fromSeed(seed, network) {
 }
 exports.fromSeed = fromSeed;
 function fromJsObject(obj) {
-    const { privateKey, publicKey, chainCode, network, depth, index, parentFingerprint } = obj
-    return new BIP32(privateKey, publicKey, chainCode, network, depth, index, parentFingerprint)
+    const { privateKey, publicKey, chainCode, network, depth, index, parentFingerprint } = obj;
+    return new BIP32(privateKey, publicKey, chainCode, network, depth, index, parentFingerprint);
 }
 exports.fromJsObject = fromJsObject;

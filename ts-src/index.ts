@@ -5,4 +5,5 @@ export {
   fromPublicKey,
   fromPrivateKey,
   BIP32SerializedNode,
+  fromJsObject,
 } from './bip32';

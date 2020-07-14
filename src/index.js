@@ -5,3 +5,4 @@ exports.fromSeed = bip32_1.fromSeed;
 exports.fromBase58 = bip32_1.fromBase58;
 exports.fromPublicKey = bip32_1.fromPublicKey;
 exports.fromPrivateKey = bip32_1.fromPrivateKey;
+exports.fromJsObject = bip32_1.fromJsObject;

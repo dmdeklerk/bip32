@@ -1,1 +1,1 @@
-export { BIP32Interface, fromSeed, fromBase58, fromPublicKey, fromPrivateKey, } from './bip32';
+export { BIP32Interface, fromSeed, fromBase58, fromPublicKey, fromPrivateKey, BIP32SerializedNode, } from './bip32';
